@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grand Vista | Luxury Rooms & Suites</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app-wrapper">
+    <header class="luxury-header">
+        <a href="index.html" class="logo-area">
+            <h1>Grand Vista</h1>
+            <p>The Epitome of Luxury</p>
+        </a>
+        <nav class="nav-menu" id="navMenu">
+            <a href="index.html" class="nav-item">Dashboard</a>
+            <a href="rooms.html" class="nav-item active">Accommodations</a>
+            <a href="bookings.html" class="nav-item">Reservations</a>
+            <a href="services.html" class="nav-item">Amenities</a>
+            <a href="contact.html" class="nav-item">Support</a>
+        </nav>
+        <div class="auth-widget" id="authWidget"></div>
+        <button class="mobile-menu-toggle" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+    </header>
+
+    <section class="hero-section" style="height: 40vh;">
+        <div class="hero-bg"><img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1600&auto=format" alt="Rooms"></div>
+        <div class="hero-content">
+            <h2 style="font-size: 3rem;">Exquisite Rooms & Suites</h2>
+            <p>Discover a world of elegance and comfort.</p>
+        </div>
+    </section>
+
+    <main class="page-content">
+        <div class="container">
+            <div style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 3rem; flex-wrap: wrap; gap: 1.5rem;">
+                <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--primary);">Available Accommodations</h2>
+                <div style="display:flex; gap: 1rem; flex-wrap: wrap;">
+                    <select id="categoryFilter" style="width: 180px; margin:0;">
+                        <option value="All">All Categories</option>
+                        <option value="Suite">Suites</option>
+                        <option value="Deluxe">Deluxe</option>
+                        <option value="Penthouse">Penthouse</option>
+                        <option value="Villa">Villa</option>
+                        <option value="Standard">Standard</option>
+                    </select>
+                    <input type="text" id="roomSearchInput" placeholder="Search rooms..." style="width: 300px; margin:0;">
+                </div>
+            </div>
+            <div class="rooms-gallery-advanced" id="roomsGalleryContainer"></div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Grand Vista</h4>
+                    <p style="opacity: 0.8;">The ultimate luxury experience.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Dashboard</a></li>
+                        <li><a href="rooms.html">Rooms</a></li>
+                        <li><a href="bookings.html">Reservations</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom"><p>&copy; 2026 Grand Vista Hotel Management.</p></div>
+        </div>
+    </footer>
+</div>
+
+<div id="bookingModalMain" class="modal-overlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); display:none; align-items:center; justify-content:center; z-index:3000;">
+    <div class="modal-container" style="background:var(--bg-card); padding:3rem; border-radius:1.5rem; width:90%; max-width:500px; border: 1px solid var(--glass-border);">
+        <h3 style="font-family:'Playfair Display'; font-size:2rem; color:var(--primary); margin-bottom:1.5rem;">Create Booking</h3>
+        <select id="bookingRoomSelect"></select>
+        <input type="date" id="bookingCheckin">
+        <input type="date" id="bookingCheckout">
+        <button id="confirmBookingFinalBtn" class="btn-gold" style="width:100%; padding:1rem;">Confirm Booking</button>
+        <button onclick="document.getElementById('bookingModalMain').style.display='none'" class="btn-outline-gold" style="width:100%; margin-top:10px;">Cancel</button>
+    </div>
+</div>
+
+<script src="script.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        renderRoomsAdv();
+        document.getElementById("confirmBookingFinalBtn").onclick = confirmBookingFinal;
+        document.getElementById("categoryFilter").onchange = renderRoomsAdv;
+        document.getElementById("roomSearchInput").oninput = renderRoomsAdv;
+    });
+
+    function renderRoomsAdv() {
+        const container = document.getElementById("roomsGalleryContainer");
+        const category = document.getElementById("categoryFilter").value;
+        const search = document.getElementById("roomSearchInput").value.toLowerCase();
+        const filtered = roomsData.filter(r => (category === "All" || r.category === category) && (r.name.toLowerCase().includes(search) || r.desc.toLowerCase().includes(search)));
+        
+        container.innerHTML = filtered.map(room => `
+            <div class="room-card-3d">
+                <div class="room-img-wrapper"><img src="${room.img}" alt="${room.name}"></div>
+                <div class="room-details">
+                    <h3>${room.name}</h3>
+                    <p>${room.desc}</p>
+                    <div style="display:flex; justify-content:space-between; align-items:center">
+                        <p style="font-size:1.2rem; font-weight:800; color:var(--primary)">$${room.price}/night</p>
+                        <button onclick="openBookingModal(${room.id})" class="btn-gold">Book Now</button>
+                    </div>
+                </div>
+            </div>`).join('');
+    }
+
+    function openBookingModal(id) {
+        if(!currentUser) return openAuthModal('signin');
+        const modal = document.getElementById("bookingModalMain");
+        const select = document.getElementById("bookingRoomSelect");
+        select.innerHTML = roomsData.map(r => `<option value="${r.id}" ${r.id === id ? 'selected' : ''}>${r.name} - $${r.price}</option>`).join('');
+        modal.style.display = 'flex';
+    }
+
+    function confirmBookingFinal() {
+        const roomId = parseInt(document.getElementById("bookingRoomSelect").value);
+        const cin = document.getElementById("bookingCheckin").value;
+        const cout = document.getElementById("bookingCheckout").value;
+        if(!cin || !cout) return alert("Select dates");
+        const nights = Math.ceil((new Date(cout) - new Date(cin)) / 86400000);
+        if(nights <= 0) return alert("Invalid dates");
+        
+        const room = roomsData.find(r => r.id === roomId);
+        allBookings.push({ id: Date.now(), roomId, roomName: room.name, checkin: cin, checkout: cout, userEmail: currentUser.email, nights, total: nights * room.price });
+        saveToLocal();
+        alert("✨ Booking confirmed!");
+        window.location.href = 'bookings.html';
+    }
+</script>
+</body>
+</html>

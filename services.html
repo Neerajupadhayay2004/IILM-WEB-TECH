@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grand Vista | Luxury Services</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app-wrapper">
+    <header class="luxury-header">
+        <a href="index.html" class="logo-area">
+            <h1>Grand Vista</h1>
+            <p>The Epitome of Luxury</p>
+        </a>
+        <nav class="nav-menu" id="navMenu">
+            <a href="index.html" class="nav-item">Dashboard</a>
+            <a href="rooms.html" class="nav-item">Accommodations</a>
+            <a href="bookings.html" class="nav-item">Reservations</a>
+            <a href="services.html" class="nav-item active">Amenities</a>
+            <a href="contact.html" class="nav-item">Support</a>
+        </nav>
+        <div class="auth-widget" id="authWidget"></div>
+        <button class="mobile-menu-toggle" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+    </header>
+
+    <section class="hero-section" style="height: 40vh;">
+        <div class="hero-bg"><img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1600&auto=format" alt="Services"></div>
+        <div class="hero-content">
+            <h2 style="font-size: 3rem;">World-Class Amenities</h2>
+            <p>Indulge in experiences designed for the elite.</p>
+        </div>
+    </section>
+
+    <main class="page-content">
+        <div class="container">
+            <div class="stats-grid" style="margin-top: 2rem;">
+                <div class="stat-card-modern" style="text-align: center; padding: 3rem 2rem;">
+                    <i class="fas fa-utensils fa-4x" style="color: var(--primary); margin-bottom: 1.5rem;"></i>
+                    <h3 style="font-family:'Playfair Display'">Fine Dining</h3>
+                    <p>Michelin-starred excellence.</p>
+                    <button onclick="alert('Menu loading...')" class="btn-outline-gold" style="margin-top:1.5rem; width:100%">Explore Menu</button>
+                </div>
+                <div class="stat-card-modern" style="text-align: center; padding: 3rem 2rem;">
+                    <i class="fas fa-spa fa-4x" style="color: var(--primary); margin-bottom: 1.5rem;"></i>
+                    <h3 style="font-family:'Playfair Display'">The Royal Spa</h3>
+                    <p>Ayurvedic rejuvenation.</p>
+                    <button onclick="alert('Booking system loading...')" class="btn-outline-gold" style="margin-top:1.5rem; width:100%">Book Session</button>
+                </div>
+                <div class="stat-card-modern" style="text-align: center; padding: 3rem 2rem;">
+                    <i class="fas fa-swimmer fa-4x" style="color: var(--primary); margin-bottom: 1.5rem;"></i>
+                    <h3 style="font-family:'Playfair Display'">Infinity Pool</h3>
+                    <p>Sunset cocktail deck.</p>
+                    <button onclick="alert('Cabana reserved!')" class="btn-outline-gold" style="margin-top:1.5rem; width:100%">Reserve Cabana</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Grand Vista</h4>
+                    <p style="opacity: 0.8;">Unparalleled service standards.</p>
+                </div>
+            </div>
+            <div class="footer-bottom"><p>&copy; 2026 Grand Vista Hotel.</p></div>
+        </div>
+    </footer>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

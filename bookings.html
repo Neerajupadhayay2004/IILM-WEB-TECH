@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grand Vista | Your Reservations</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app-wrapper">
+    <header class="luxury-header">
+        <a href="index.html" class="logo-area">
+            <h1>Grand Vista</h1>
+            <p>The Epitome of Luxury</p>
+        </a>
+        <nav class="nav-menu" id="navMenu">
+            <a href="index.html" class="nav-item">Dashboard</a>
+            <a href="rooms.html" class="nav-item">Accommodations</a>
+            <a href="bookings.html" class="nav-item active">Reservations</a>
+            <a href="services.html" class="nav-item">Amenities</a>
+            <a href="contact.html" class="nav-item">Support</a>
+        </nav>
+        <div class="auth-widget" id="authWidget"></div>
+        <button class="mobile-menu-toggle" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+    </header>
+
+    <main class="page-content">
+        <div class="container">
+            <div style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 3rem; flex-wrap: wrap; gap: 1.5rem;">
+                <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--primary);">Your Reservations</h2>
+                <a href="rooms.html" class="btn-gold">New Booking</a>
+            </div>
+            <div id="bookingsListContainer" class="booking-list-modern"></div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Grand Vista</h4>
+                    <p style="opacity: 0.8;">Luxury hospitality redefined.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Dashboard</a></li>
+                        <li><a href="rooms.html">Rooms</a></li>
+                        <li><a href="bookings.html">Reservations</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom"><p>&copy; 2026 Grand Vista Hotel Management.</p></div>
+        </div>
+    </footer>
+</div>
+
+<script src="script.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        renderBookingsPage();
+    });
+
+    function renderBookingsPage() {
+        const container = document.getElementById("bookingsListContainer");
+        if(!currentUser) {
+            container.innerHTML = `<div style="text-align:center; padding:5rem; background:var(--bg-card); border-radius:2rem; border:1px dashed var(--primary)">
+                <i class="fas fa-lock fa-4x" style="color:var(--primary); margin-bottom:2rem"></i>
+                <h3>Sign in to view reservations</h3>
+                <button onclick="openAuthModal('signin')" class="btn-gold" style="margin-top:2rem">Sign In Now</button>
+            </div>`;
+            return;
+        }
+
+        const userBookings = allBookings.filter(b => b.userEmail === currentUser.email);
+        if(userBookings.length === 0) {
+            container.innerHTML = `<div style="text-align:center; padding:5rem; background:var(--bg-card); border-radius:2rem">
+                <i class="fas fa-calendar-xmark fa-4x" style="color:#eee; margin-bottom:2rem"></i>
+                <h3>No reservations found</h3>
+                <a href="rooms.html" class="btn-gold" style="margin-top:2rem; display:inline-block">Browse Rooms</a>
+            </div>`;
+            return;
+        }
+
+        container.innerHTML = userBookings.map(b => `
+            <div class="booking-entry" style="padding:2rem; margin-bottom:1rem; background:var(--bg-card); border-radius:1.5rem; border:1px solid var(--glass-border)">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1.5rem">
+                    <div>
+                        <h3 style="font-family:'Playfair Display'; color:var(--primary)">${b.roomName}</h3>
+                        <p style="font-size:0.9rem; color:var(--text-muted)">${b.checkin} - ${b.checkout} (${b.nights} nights)</p>
+                    </div>
+                    <div style="text-align:right">
+                        <p style="font-size:1.5rem; font-weight:800; color:var(--secondary)">$${b.total}</p>
+                        <button onclick="cancelBooking(${b.id})" class="btn-outline-gold" style="border-color:#e74c3c; color:#e74c3c; padding:0.5rem 1rem">Cancel Stay</button>
+                    </div>
+                </div>
+            </div>`).join('');
+    }
+
+    function cancelBooking(id) {
+        if(confirm("Cancel this reservation?")) {
+            allBookings = allBookings.filter(b => b.id !== id);
+            saveToLocal();
+            renderBookingsPage();
+        }
+    }
+</script>
+</body>
+</html>

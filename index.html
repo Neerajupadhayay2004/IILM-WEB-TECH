@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grand Vista | Enterprise Command Center</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="dash-layout">
+    <!-- Sidebar Navigation -->
+    <aside class="dash-sidebar">
+        <a href="index.html" class="logo-area" style="margin-bottom: 3rem;">
+            <h1>Grand Vista</h1>
+            <p>The Epitome of Luxury</p>
+        </a>
+        
+        <nav class="nav-menu" id="navMenu" style="display: flex; flex-direction: column; gap: 0.5rem; flex: 1;">
+            <a href="index.html" class="nav-item active"><i class="fas fa-th-large"></i> Dashboard</a>
+            <a href="rooms.html" class="nav-item"><i class="fas fa-bed"></i> Room Inventory</a>
+            <a href="bookings.html" class="nav-item"><i class="fas fa-calendar-check"></i> Reservations</a>
+            <a href="services.html" class="nav-item"><i class="fas fa-concierge-bell"></i> Amenities</a>
+            <a href="contact.html" class="nav-item"><i class="fas fa-headset"></i> Support Hub</a>
+        </nav>
+
+        <div id="authWidgetSidebar" style="margin-top: auto; padding-top: 2rem; border-top: 1px solid var(--glass-border);">
+            <!-- Auth will be injected here -->
+        </div>
+        <button class="mobile-menu-toggle" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+    </aside>
+
+    <!-- Main Dashboard Area -->
+    <main class="dash-main">
+        <!-- Top Bar -->
+        <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3rem;">
+            <div>
+                <h2 style="font-family: 'Playfair Display', serif; font-size: 2.2rem; color: var(--primary);">Operational Command Center</h2>
+                <p style="color: var(--text-muted);">Welcome back, Manager. Here is your hotel's performance overview.</p>
+            </div>
+            <div style="display: flex; gap: 1rem; align-items: center;">
+                <div class="theme-toggle" id="themeToggleDash"><i class="fas fa-moon"></i></div>
+                <div style="background: var(--primary-light); color: var(--primary); padding: 0.5rem 1.5rem; border-radius: 2rem; font-weight: 700; font-size: 0.8rem;">
+                    <i class="fas fa-clock"></i> <span id="dashClock">12:45 PM</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="dash-grid">
+            <!-- Row 1: Key Performance Indicators with Images -->
+            <div class="col-3">
+                <div class="dash-card" style="padding: 0; overflow: hidden; border-left: 5px solid #2e7d32;">
+                    <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=400&auto=format" alt="Revenue" style="width: 100%; height: 100px; object-fit: cover;">
+                    <div style="padding: 1.5rem;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <span style="color: var(--text-muted); font-weight: 600; font-size: 0.8rem;">Monthly Revenue</span>
+                            <i class="fas fa-sack-dollar" style="color: #2e7d32;"></i>
+                        </div>
+                        <h2 style="font-size: 1.8rem; margin: 0.5rem 0;">$42,850</h2>
+                        <span style="color: #2e7d32; font-size: 0.75rem; font-weight: 700;"><i class="fas fa-arrow-up"></i> 12.5%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="dash-card" style="padding: 0; overflow: hidden; border-left: 5px solid var(--primary);">
+                    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&auto=format" alt="Occupancy" style="width: 100%; height: 100px; object-fit: cover;">
+                    <div style="padding: 1.5rem;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <span style="color: var(--text-muted); font-weight: 600; font-size: 0.8rem;">Occupancy Rate</span>
+                            <i class="fas fa-door-open" style="color: var(--primary);"></i>
+                        </div>
+                        <h2 style="font-size: 1.8rem; margin: 0.5rem 0;">92.4%</h2>
+                        <div style="background: rgba(0,0,0,0.05); height: 6px; border-radius: 10px;">
+                            <div style="width: 92.4%; height: 100%; background: var(--primary); border-radius: 10px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="dash-card" style="padding: 0; overflow: hidden; border-left: 5px solid #1976d2;">
+                    <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=400&auto=format" alt="Rooms" style="width: 100%; height: 100px; object-fit: cover;">
+                    <div style="padding: 1.5rem;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <span style="color: var(--text-muted); font-weight: 600; font-size: 0.8rem;">Rooms Occupied</span>
+                            <i class="fas fa-bed-pulse" style="color: #1976d2;"></i>
+                        </div>
+                        <h2 style="font-size: 1.8rem; margin: 0.5rem 0;">28 / 32</h2>
+                        <span style="color: #1976d2; font-size: 0.75rem; font-weight: 700;">4 Units Free</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="dash-card" style="padding: 0; overflow: hidden; border-left: 5px solid #d32f2f;">
+                    <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=400&auto=format" alt="Service" style="width: 100%; height: 100px; object-fit: cover;">
+                    <div style="padding: 1.5rem;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <span style="color: var(--text-muted); font-weight: 600; font-size: 0.8rem;">Service Alerts</span>
+                            <i class="fas fa-bell-concierge" style="color: #d32f2f;"></i>
+                        </div>
+                        <h2 style="font-size: 1.8rem; margin: 0.5rem 0;">14</h2>
+                        <span style="background: #ffebee; color: #c62828; padding: 2px 8px; border-radius: 10px; font-size: 0.7rem; font-weight: 700;">2 Urgent</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 2: Analytics & Actions -->
+            <div class="col-8">
+                <div class="dash-card">
+                    <h3 style="margin-bottom: 1.5rem; font-family: 'Playfair Display', serif; color: var(--primary);">Performance Analytics</h3>
+                    <div style="height: 300px; position: relative;">
+                        <canvas id="revenueOccupancyChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="dash-card">
+                    <h3 style="margin-bottom: 1.5rem; font-family: 'Playfair Display', serif; color: var(--primary);">Quick Management</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <button class="btn-outline-gold" style="padding: 1.5rem 0.5rem; display: flex; flex-direction: column; gap: 10px; align-items: center; border-radius: 1rem;" onclick="window.location.href='rooms.html'">
+                            <i class="fas fa-plus-circle fa-lg"></i>
+                            <span>New Booking</span>
+                        </button>
+                        <button class="btn-outline-gold" style="padding: 1.5rem 0.5rem; display: flex; flex-direction: column; gap: 10px; align-items: center; border-radius: 1rem;">
+                            <i class="fas fa-key fa-lg"></i>
+                            <span>Check-in</span>
+                        </button>
+                        <button class="btn-outline-gold" style="padding: 1.5rem 0.5rem; display: flex; flex-direction: column; gap: 10px; align-items: center; border-radius: 1rem;">
+                            <i class="fas fa-broom fa-lg"></i>
+                            <span>Clean Req</span>
+                        </button>
+                        <button class="btn-outline-gold" style="padding: 1.5rem 0.5rem; display: flex; flex-direction: column; gap: 10px; align-items: center; border-radius: 1rem;" onclick="window.location.href='contact.html'">
+                            <i class="fas fa-life-ring fa-lg"></i>
+                            <span>Get Help</span>
+                        </button>
+                    </div>
+                    
+                    <div style="margin-top: 2rem; padding: 1.5rem; background: var(--primary-light); border-radius: 1rem; border: 1px dashed var(--primary);">
+                        <p style="color: var(--primary-dark); font-weight: 700; font-size: 0.85rem; margin-bottom: 5px;">Manager's Tip</p>
+                        <p style="font-size: 0.8rem; color: var(--secondary);">Peak occupancy expected this weekend. Ensure all VIP suites are pre-inspected.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 3: Activity & Management Tools -->
+            <div class="col-4">
+                <div class="dash-card">
+                    <h3 style="margin-bottom: 1.5rem; font-family: 'Playfair Display', serif; color: var(--primary);">Live Activity Log</h3>
+                    <div id="activityLog" style="display: flex; flex-direction: column; gap: 1.2rem;">
+                        <div style="display: flex; gap: 15px; align-items: center;">
+                            <div style="width: 40px; height: 40px; border-radius: 50%; background: #e8f5e9; color: #2e7d32; display: flex; align-items: center; justify-content: center;"><i class="fas fa-check"></i></div>
+                            <div>
+                                <p style="font-weight: 700; font-size: 0.9rem;">Room 104 Checked-out</p>
+                                <small style="color: var(--text-muted);">2 mins ago</small>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 15px; align-items: center;">
+                            <div style="width: 40px; height: 40px; border-radius: 50%; background: #e3f2fd; color: #1976d2; display: flex; align-items: center; justify-content: center;"><i class="fas fa-plus"></i></div>
+                            <div>
+                                <p style="font-weight: 700; font-size: 0.9rem;">New Booking: Suite 201</p>
+                                <small style="color: var(--text-muted);">15 mins ago</small>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 15px; align-items: center;">
+                            <div style="width: 40px; height: 40px; border-radius: 50%; background: #fff3e0; color: #f57c00; display: flex; align-items: center; justify-content: center;"><i class="fas fa-bell"></i></div>
+                            <div>
+                                <p style="font-weight: 700; font-size: 0.9rem;">Service Req: Room 305</p>
+                                <small style="color: var(--text-muted);">1 hour ago</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top: auto; padding-top: 2rem; display: flex; align-items: center; gap: 12px;">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&auto=format" alt="Manager" style="width: 45px; height: 45px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary);">
+                        <div>
+                            <p style="font-weight: 800; font-size: 0.9rem; color: var(--primary);">Marcus Vane</p>
+                            <p style="font-size: 0.7rem; color: var(--text-muted);">Duty Manager</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-8">
+                <div class="dash-card" style="padding: 0; overflow: hidden; flex-direction: row; height: 350px;">
+                    <div style="flex: 1; padding: 2.5rem; display: flex; flex-direction: column; justify-content: center;">
+                        <h3 style="margin-bottom: 1.5rem; font-family: 'Playfair Display', serif; color: var(--primary);">Inventory Command</h3>
+                        <p style="color: var(--text-muted); margin-bottom: 2rem; line-height: 1.6; font-size: 0.9rem;">Maintain precise control over your elite suite inventory. Real-time updates on room readiness and guest preferences.</p>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                            <div>
+                                <h4 style="color: var(--primary); font-size: 1.5rem;">98%</h4>
+                                <p style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted);">Cleanliness</p>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--primary); font-size: 1.5rem;">4.2m</h4>
+                                <p style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted);">Avg. Service</p>
+                            </div>
+                        </div>
+                        <a href="rooms.html" class="btn-gold" style="margin-top: 2rem; align-self: flex-start; padding: 0.8rem 2rem;">Manage Rooms</a>
+                    </div>
+                    <div style="width: 40%; height: 100%;">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&auto=format" alt="Analytics" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="script.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Clock Update
+        const updateClock = () => {
+            const now = new Date();
+            document.getElementById('dashClock').innerText = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        };
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Revenue vs Occupancy Chart
+        const ctx = document.getElementById('revenueOccupancyChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                datasets: [
+                    {
+                        label: 'Revenue ($)',
+                        data: [4200, 5100, 4800, 6200, 7500, 8900, 7800],
+                        borderColor: '#2e7d32',
+                        backgroundColor: 'rgba(46, 125, 50, 0.1)',
+                        tension: 0.4,
+                        fill: true,
+                        yAxisID: 'y',
+                        borderWidth: 3
+                    },
+                    {
+                        label: 'Occupancy (%)',
+                        data: [78, 82, 80, 88, 92, 98, 94],
+                        borderColor: '#c5a059',
+                        tension: 0.4,
+                        yAxisID: 'y1',
+                        borderWidth: 3,
+                        borderDash: [5, 5]
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'top', labels: { font: { weight: 'bold' } } }
+                },
+                scales: {
+                    y: { position: 'left', title: { display: true, text: 'Revenue' }, ticks: { stepSize: 2000 } },
+                    y1: { position: 'right', min: 0, max: 100, grid: { drawOnChartArea: false }, title: { display: true, text: 'Occupancy %' } }
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>
